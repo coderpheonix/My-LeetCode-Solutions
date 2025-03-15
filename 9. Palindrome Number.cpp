@@ -3,25 +3,20 @@
 class Solution {
 public:
     bool isPalindrome(int x) {
-        // Negative numbers are not palindromes
+        // Negative numbers cannot be palindrome
         if (x < 0) return false;
 
-        int originalNum = x;
-        int reversedNum = 0;
+        // If the number ends with 0, it should also start with 0 to be a palindrome
+        if (x != 0 && x % 10 == 0) return false;
 
-        while (x != 0) {
-            int lastDigit = x % 10;
-
-            // Check if multiplying reversedNum by 10 will cause overflow
-            if (reversedNum > (INT_MAX - lastDigit) / 10) {
-                return false; // This handles overflow, not a valid palindrome
-            }
-
-            reversedNum = reversedNum * 10 + lastDigit;
-            x /= 10;
+        int reversed = 0;
+        while (x > reversed)
+        {
+            reversed = reversed * 10 + x % 10;  // Add the last digit of x to reversed
+            x /= 10;  // Remove the last digit from x
         }
 
-        // Check if the original number is equal to the reversed number
-        return originalNum == reversedNum;
+        // For even-length numbers, x == reversed. For odd-length, reversed / 10 == x.
+        return x == reversed || x == reversed / 10;
     }
 };
