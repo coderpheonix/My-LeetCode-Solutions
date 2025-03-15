@@ -20,3 +20,26 @@ public:
         return x == reversed || x == reversed / 10;
     }
 };
+
+
+two pointer approach 
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        // If x is negative or ends with 0 but is not 0, it's not a palindrome
+        if (x < 0 || (x % 10 == 0 && x != 0)) {
+            return false;
+        }
+        
+        int left = x;
+        int right = 0;
+        
+        while (left > right) {
+            right = right * 10 + left % 10;  // Build the reverse number
+            left /= 10;  // Remove the last digit from the original number
+        }
+        
+        return left == right || left == right / 10;  // Handle odd/even length cases
+    }
+};
+
